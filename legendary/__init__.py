@@ -1,4 +1,4 @@
 """Legendary!"""
 
-__version__ = '0.20.38'
-__codename__ = 'Exit 17 (Playtron)'
+__version__ = '0.20.39'
+__codename__ = 'This Vortal Coil (Playtron)'
