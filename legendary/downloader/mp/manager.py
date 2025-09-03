@@ -326,6 +326,9 @@ class DLManager(Process):
             self.log.debug('Analyzing manifest for re-usable chunks in saved files...')
             cur_written_cps = defaultdict(list)
             for cur_file in fmlist:
+                if cur_file.filename in mc.unchanged:
+                    continue
+
                 cur_file_cps = dict()
                 cur_file_offset = 0
                 for cp in cur_file.chunk_parts:
