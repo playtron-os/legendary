@@ -225,6 +225,7 @@ class InstalledGame:
     requires_ot: bool = False
     save_path: Optional[str] = None
     save_timestamp: Optional[float] = None
+    use_signed_url: bool = False
 
     @classmethod
     def from_json(cls, json):
@@ -252,6 +253,7 @@ class InstalledGame:
         tmp.install_size = json.get('install_size', 0)
         tmp.egl_guid = json.get('egl_guid', '')
         tmp.install_tags = json.get('install_tags', [])
+        tmp.use_signed_url = json.get('use_signed_url', False)
         return tmp
 
 
