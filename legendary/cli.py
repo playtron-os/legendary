@@ -1747,6 +1747,7 @@ class LegendaryCLI:
         namespace = args.namespace or game.namespace
         use_signed_url = None
         is_preloaded = False
+        manifest_secrets = dict()
         # load installed manifest or URI
         if args.offline or manifest_uri:
             if app_name and self.core.is_installed(app_name):
