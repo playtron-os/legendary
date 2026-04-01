@@ -1574,7 +1574,7 @@ class LegendaryCore:
             if read_files:
                 raise
             self.log.warning('Memory error encountered, retrying with file read enabled...')
-            dlm = DLManager(install_path, base_url, use_signed_urls, asset,
+            dlm = DLManager(install_path, base_url, use_signed_urls, manifest_secrets, asset,
                         resume_file=resume_file, status_q=status_q,
                         max_shared_memory=max_shm * 1024 * 1024, max_workers=max_workers,
                         dl_timeout=dl_timeout, bind_ip=bind_ip)
@@ -2112,7 +2112,7 @@ class LegendaryCore:
         if not self.logged_in:
             self.egs.start_session(client_credentials=True)
 
-        _manifest, base_urls, use_signed_urls, _, _manifest_secrets = self.get_cdn_manifest(EOSOverlayApp)
+        _manifest, base_urls, use_signed_urls, _, manifest_secrets = self.get_cdn_manifest(EOSOverlayApp)
         manifest = self.load_manifest(_manifest)
 
         if igame := self.lgd.get_overlay_install_info():
@@ -2123,7 +2123,7 @@ class LegendaryCore:
         if use_signed_urls:
             raise ValueError('EOS Overlay requiring signed URLs, not sure what to do here')
 
-        dlm = DLManager(path, base_urls[0], use_signed_urls, GameAsset())
+        dlm = DLManager(path, base_urls[0], use_signed_urls, manifest_secrets, GameAsset())
         analysis_result = dlm.run_analysis(manifest=manifest)
 
         install_size = analysis_result.install_size
@@ -2172,7 +2172,7 @@ class LegendaryCore:
         if os.path.exists(path):
             raise FileExistsError(f'Bottle {bottle_name} already exists')
 
-        dlm = DLManager(path, base_url, False, GameAsset())
+        dlm = DLManager(path, base_url, False, dict(), GameAsset())
         analysis_result = dlm.run_analysis(manifest=manifest)
 
         install_size = analysis_result.install_size
