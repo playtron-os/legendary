@@ -1130,7 +1130,7 @@ class LegendaryCore:
                 if r.status_code != 200:
                     self.log.error(f'Download failed, status code: {r.status_code}')
                     break
-                c = Chunk.read_buffer(r.content)
+                c = Chunk.read_buffer(r.content, dict())
                 chunks[c.guid_num] = c.data
 
             if not chunks:
